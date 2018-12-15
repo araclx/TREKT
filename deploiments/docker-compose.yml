@@ -3,5 +3,12 @@ services:
   mqbroker:
     image: rabbitmq:3.7.8-management-alpine
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - 5672:5672
+      - 15672:15672
+  accesspoint:
+    image: rektranetwork/trekt.accesspoint:test-latest
+    command: -name test -unsecured -host accesspoint:8080 -mq_broker mqbroker
+    depends_on:
+      - mqbroker
+    ports:
+      - 8080:80
