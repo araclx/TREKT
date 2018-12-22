@@ -7,8 +7,14 @@ services:
       - 15672:15672
   accesspoint:
     image: rektranetwork/trekt.accesspoint:test-latest
-    command: -name test -unsecured -host accesspoint:8080 -mq_broker mqbroker
+    command: -name p80 -unsecured -host accesspoint:8080 -mq_broker mqbroker
     depends_on:
       - mqbroker
+      - auth
     ports:
-      - 8080:80
+      - 80:8080
+  auth:
+    image: rektranetwork/trekt.auth:test-latest
+    command: -name 1 -mq_broker mqbroker
+    depends_on:
+      - mqbroker
