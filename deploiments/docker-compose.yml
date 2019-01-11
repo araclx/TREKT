@@ -10,11 +10,15 @@ services:
     command: -name p80 -unsecured -host accesspoint:8080 -mq_broker mqbroker
     depends_on:
       - mqbroker
-      - auth
     ports:
       - 80:8080
   auth:
     image: rektranetwork/trekt.auth:test-latest
+    command: -name 1 -mq_broker mqbroker
+    depends_on:
+      - mqbroker
+  exchange-binance:
+    image: rektranetwork/trekt.exchange.binance:test-latest
     command: -name 1 -mq_broker mqbroker
     depends_on:
       - mqbroker
