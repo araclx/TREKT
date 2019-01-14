@@ -7,11 +7,11 @@ A product designed for traders that will allow them to additional monetize their
 
 The simplest way to set up a test instance of TREKT is to use ready Docker images from [REKTRA Network Docker Hub](https://hub.docker.com/u/rektranetwork).
 
-You can use [deploiments/docker-compose.yml](https://github.com/rektra-network/TREKT/blob/master/deploiments/docker-compose.yml) as an example of TREKT-network structure:
+You can use [deployments/docker-compose.yml](https://github.com/rektra-network/TREKT/blob/master/deployments/docker-compose.yml) as an example of TREKT-network structure:
 
     git clone https://github.com/rektra-network/TREKT.git
     cd TREKT
-    docker-compose -f deploiments/docker-compose.yml up -d
+    docker-compose -f deployments/docker-compose.yml up -d
 
 [TREKT API](https://github.com/rektra-network/TREKT/wiki/Terminal-API) endpoint will now be reachable at ws://localhost:8080.
 
