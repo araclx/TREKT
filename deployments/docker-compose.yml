@@ -1,24 +1,45 @@
 version: "3.7"
 services:
-  mqbroker:
+
+  mq-broker:
     image: rabbitmq:3.7.8-management-alpine
     ports:
       - 5672:5672
       - 15672:15672
+
+  mqs-broker:
+    image: wurstmeister/kafka:2.12-2.1.0
+    depends_on:
+      - mqs-zookeeper
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: mqs-broker
+      KAFKA_ZOOKEEPER_CONNECT: mqs-zookeeper:2181
+  mqs-zookeeper:
+    image: wurstmeister/zookeeper:3.4.6
+    expose:
+      - 2181
+
   accesspoint:
     image: rektranetwork/trekt.accesspoint:test-latest
-    command: -name p80 -unsecured -host accesspoint:8080 -mq_broker mqbroker
+    command: -name p80 -unsecured -host accesspoint:8080 -mq_broker mq-broker -stream_brokers mqs-broker:9092
     depends_on:
-      - mqbroker
+      - mq-broker
+      - mqs-broker
     ports:
       - 80:8080
+
   auth:
     image: rektranetwork/trekt.auth:test-latest
-    command: -name 1 -mq_broker mqbroker
+    command: -name 1 -mq_broker mq-broker -stream_brokers mqs-broker:9092
     depends_on:
-      - mqbroker
+      - mq-broker
+      - mqs-broker
+
   exchange-binance:
     image: rektranetwork/trekt.exchange.binance:test-latest
-    command: -name 1 -mq_broker mqbroker
+    command: -name 1 -mq_broker mq-broker -stream_brokers mqs-broker:9092
     depends_on:
-      - mqbroker
+      - mq-broker
+      - mqs-broker
