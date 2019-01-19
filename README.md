@@ -1,5 +1,7 @@
 # TREKT
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/01b0d62205a748b5b7b791eaad339458)](https://app.codacy.com/app/rektra-network/TREKT?utm_source=github.com&utm_medium=referral&utm_content=rektra-network/TREKT&utm_campaign=Badge_Grade_Dashboard)
+
 A product designed for traders that will allow them to additional monetize their stock movements and optimize their work through functions such as dynamic risk management, creating dynamic technical analysis or suggesting transactions through artificial intelligence.
 
 
